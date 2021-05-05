@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: mvcwithkube
-          image: scheduleregistry.azurecr.io/schedule:latest
+          image: mvccube.azurecr.io/mvccube:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
