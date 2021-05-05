@@ -26,7 +26,7 @@ spec:
             - name: ASPNETCORE_URLS
               value: http://+:80
       imagePullSecrets:
-      - name: webapiservice
+      - name: mvccube
 ---
 apiVersion: v1
 kind: Service
