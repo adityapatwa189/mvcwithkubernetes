@@ -1,0 +1,45 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mvcwithkube
+  labels:
+    app: mvcwithkube
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: mvcwithkube
+  template:
+    metadata:
+      labels:
+        app: mvcwithkube
+        service: mvcwithkube
+    spec:
+      containers:
+        - name: mvcwithkube
+          image: scheduleregistry.azurecr.io/schedule:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          env:
+            - name: ASPNETCORE_URLS
+              value: http://+:80
+      imagePullSecrets:
+      - name: webapiservice
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mvcwithkube
+  labels:
+    app: mvcwithkube
+    service: mvcwithkube
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+  selector:
+    service: mvcwithkube
